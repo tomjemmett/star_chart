@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 function App() {
   const [activeTab, setActiveTab] = useState('daily')
@@ -93,7 +93,8 @@ function App() {
     })
   }
 
-  const currentDayStars = stars[formatDate(currentDate)] || { good: 0, bad: 0 }
+  const currentDateKey = useMemo(() => formatDate(currentDate), [currentDate])
+  const currentDayStars = stars[currentDateKey] || { good: 0, bad: 0 }
   const weekStats = getWeekStats(weekOffset)
 
   return (
